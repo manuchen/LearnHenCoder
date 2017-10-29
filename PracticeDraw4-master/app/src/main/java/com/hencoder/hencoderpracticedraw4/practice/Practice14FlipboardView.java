@@ -72,6 +72,12 @@ public class Practice14FlipboardView extends View {
         int x = centerX - bitmapWidth / 2;
         int y = centerY - bitmapHeight / 2;
 
+        // 第一遍绘制：上半部分
+        canvas.save();
+        canvas.clipRect(0, 0, getWidth(), centerY);
+        canvas.drawBitmap(bitmap, x, y, paint);
+        canvas.restore();
+
         canvas.save();
 
         camera.save();
@@ -80,7 +86,7 @@ public class Practice14FlipboardView extends View {
         camera.applyToCanvas(canvas);
         canvas.translate(-centerX, -centerY);
         camera.restore();
-
+        canvas.clipRect(0, y+bitmapHeight/2, getWidth(), y+bitmapHeight);
         canvas.drawBitmap(bitmap, x, y, paint);
         canvas.restore();
     }
